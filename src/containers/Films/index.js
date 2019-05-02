@@ -74,10 +74,16 @@ class Films extends PureComponent {
   filterFilms() {
     const currentFilteredFilms = [...this.state.filteredFilms];
 
-    const filteredFilms = currentFilteredFilms.filter((film, index) => {
-      const filmFilters = currentFilteredFilms[index].genre_ids.sort().join(' ');
-      const activeFilters = this.state.activeFilters.sort().join(' ');
-      return filmFilters.includes(activeFilters) ? currentFilteredFilms[index] : null;
+    const filteredFilms = currentFilteredFilms.filter((film) => {
+      let validFilm = false;
+      this.state.activeFilters.forEach((genreId) => {
+        if (film.genre_ids.includes(genreId)) {
+          validFilm = true;
+        } else {
+          validFilm = false;
+        }
+      });
+      return validFilm ? film : null;
     });
 
     this.setState({
