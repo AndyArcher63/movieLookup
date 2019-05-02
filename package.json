@@ -17,6 +17,8 @@
     "css-loader": "2.1.1",
     "dotenv": "6.2.0",
     "dotenv-expand": "4.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^5.16.0",
     "eslint-config-react-app": "^4.0.0",
     "eslint-loader": "2.1.2",
@@ -29,7 +31,7 @@
     "file-loader": "3.0.1",
     "fs-extra": "7.0.1",
     "html-webpack-plugin": "4.0.0-beta.5",
-    "identity-obj-proxy": "3.0.0",
+    "identity-obj-proxy": "^3.0.0",
     "is-wsl": "^1.1.0",
     "jest": "24.7.1",
     "jest-environment-jsdom-fourteen": "0.1.0",
@@ -63,7 +65,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js --env=jsdom --config=jest.json"
   },
   "browserslist": {
     "production": [
@@ -81,8 +83,5 @@
     "presets": [
       "react-app"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   }
 }
