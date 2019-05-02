@@ -3,8 +3,4 @@ const orderByPopularity = films => (
     (a.popularity < b.popularity) ? 1 : -1))
 );
 
-const filterFilms = () => {
-
-};
-
-export { orderByPopularity, filterFilms };
+export default orderByPopularity;

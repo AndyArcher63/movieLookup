@@ -1,6 +1,42 @@
 .film {
   width: 25%;
+  background: #222;
   img {
     max-width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 100%;
+  }
+}
+
+.title {
+  margin: 0 0 10px;
+  padding: 0;
+  color: #fff;
+}
+
+.genreList {
+  margin: 0 0 20px;
+  padding: 0;
+}
+.genreListItem {
+  display: inline-block;
+  margin-right: 5px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #ccc;
+  &:after {
+    content: ', '
+  }
+
+  &:last-of-type {
+    &:after {
+      content: '',
+    }
   }
 }

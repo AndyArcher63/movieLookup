@@ -1,7 +1,10 @@
 import React, { PureComponent, Fragment } from 'react';
 import Film from '../../components/Film';
+import Filters from '../../components/Filters';
+import RatingFilter from '../../components/RatingFilter';
+import ResetButton from '../../components/ResetButton';
 import { getNowPlayingMovies, getFilmGenres } from '../../api/requests';
-import { orderByPopularity } from '../../utility';
+import orderByPopularity from '../../utility';
 import Classes from './Films.module.css';
 
 class Films extends PureComponent {
@@ -11,7 +14,7 @@ class Films extends PureComponent {
     genres: [],
     filteredGenres: [],
     activeFilters: [],
-    activeRating: '',
+    activeRating: 0,
   }
 
   componentDidMount() {
@@ -46,7 +49,7 @@ class Films extends PureComponent {
   resetFilters = () => {
     this.setState(prevState => ({
       activeFilters: [],
-      activeRating: '',
+      activeRating: 0,
       filteredFilms: prevState.films,
     }), () => {
       this.filterGenres();
@@ -68,6 +71,8 @@ class Films extends PureComponent {
     ));
     this.setState({
       filteredFilms: filterByRating,
+    }, () => {
+      this.filterGenres();
     });
   };
 
@@ -120,56 +125,30 @@ class Films extends PureComponent {
       return null;
     }
     const AllFilms = this.state.filteredFilms.map(film => (
-      <Film key={film.id} data={film} />
+      <Film
+        key={film.id}
+        data={film}
+        genres={this.state.genres}
+      />
     ));
 
-    const Filters = this.state.filteredGenres.map((filter) => {
-      const filterObj = this.state.genres.filter(genre => genre.id === filter);
-      return (
-        <button
-          type="button"
-          key={filterObj[0].id}
-          onClick={() => this.toggleFilter(filterObj[0].id)}
-          disabled={this.state.activeFilters.includes(filterObj[0].id)}
-        >
-          {filterObj[0].name}
-        </button>
-      );
-    });
     return (
       <Fragment>
-        {Filters}
-        <select onChange={e => this.changeRating(e)} disabled={this.state.activeRating} value={this.state.activeRating}>
-          <option value="">Choose a rating</option>
-          <option value="0.5">0.5</option>
-          <option value="1">1</option>
-          <option value="1.5">1.5</option>
-          <option value="2">2</option>
-          <option value="2.5">2.5</option>
-          <option value="3">3</option>
-          <option value="3.5">3.5</option>
-          <option value="4">4</option>
-          <option value="4.5">4.5</option>
-          <option value="5">5</option>
-          <option value="5.5">5.5</option>
-          <option value="6">6</option>
-          <option value="6.5">6.5</option>
-          <option value="7">7</option>
-          <option value="7.5">7.5</option>
-          <option value="8">8</option>
-          <option value="8.5">8.5</option>
-          <option value="9">9</option>
-          <option value="9.5">9.5</option>
-          <option value="10">10</option>
-        </select>
-        {(this.state.activeFilters.length > 0 || this.state.activeRating)
+        <Filters
+          filteredGenres={this.state.filteredGenres}
+          genres={this.state.genres}
+          activeFilters={this.state.activeFilters}
+          action={this.toggleFilter}
+        />
+        <RatingFilter
+          action={this.changeRating}
+          activeRating={this.state.activeRating}
+        />
+        {(this.state.activeFilters.length > 0 || this.state.activeRating > 0)
           && (
-            <button
-              type="button"
-              onClick={this.resetFilters}
-            >
-              Reset Filters
-            </button>
+            <ResetButton
+              action={this.resetFilters}
+            />
           )
         }
         <div className={Classes.wrapper}>

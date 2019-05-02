@@ -1,0 +1,21 @@
+.resetWrapper {
+  padding: 20px;
+  background: #eee;
+  margin: 5px 0;
+}
+
+.button {
+  border: 2px solid #000;
+  color: #000;
+  background: #fff;
+  padding: 10px 15px;
+  text-transform: uppercase;
+  width: 50%;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+}
